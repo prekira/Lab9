@@ -56,6 +56,10 @@ public class EmployeeDatabase {
         /*
          * Implement this function
          */
+        if (findManager(employee) == null) {
+            return 0;
+        }
+        return countManagersAbove(findManager(employee)) + 1;
     }
 
     /**
@@ -70,8 +74,29 @@ public class EmployeeDatabase {
         /*
          * Implement this function
          */
+        if (employee == null) {
+            return 0;
+        }
+        ArrayList<Employee> employeeUnder = findEmployees(employee);
+        if (employeeUnder.size() == 0) {
+            return 1;
+        }
+        for (int i = 0; i < employeeUnder.size(); i++) {
+            return countEmployeesUnder(employeeUnder.get(i)) + 1;
+        }
+        return countEmployeesUnder(employee) + 1;
     }
 
+    public ArrayList<Employee> findEmployees(Employee manager) {
+        ArrayList<Employee> subployees = new ArrayList<Employee>();
+        for (int i = 0; i < employees.size(); i++) {
+            if (employees.get(i).getName() == manager.getName()) {
+                subployees.add(employees.get(i));
+                break;
+            }
+        }
+        return subployees;
+    }
     /**
      * Main method for testing.
      * <p>
